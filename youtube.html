@@ -1,0 +1,629 @@
+<!--if we wan search box above arrange it sequentially
+ -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CHIBBYTube</title>
+    <style>
+      .P{
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      .body-dot{
+        margin: 0;/* it uses whole page*/
+        padding-top: 36px;
+        padding-left: 60px;
+        background-color: rgb(183, 162, 203);
+      }
+      
+      .header{               /*all this styles will apply in header*/
+        height: 40px;
+        display: flex;   /*elements can move accordingly*/
+        flex-direction: row; /*all the header elements will flex in a row format even the size changes*/
+        justify-content: space-between;
+        position: fixed; /* css property; header will no move from its original positiion */
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: antiquewhite;
+        border-bottom-width:1px ;
+      border-style: inherit;
+
+        border-bottom-color: rgba(161, 156, 156, 0.15);
+       
+        
+       
+      }
+/* here we divided header in 3 sections i. l,m,r ad apply the css properties accordingly*/
+      
+      .left-section{
+       flex: 1;
+        flex-direction: row; 
+        display: flex;
+        align-items: center;
+        background-color: antiquewhite;
+
+      }
+      .middle-section{
+        background-color: antiquewhite;
+        flex: 1;/* for flexible or responsive page*/
+        margin-left: 60px;
+        margin-right: 20px;
+        max-width: 600px;  /* it will shrink to limited point only*/
+        align-items: center;/* all the items of given class will align in centre*/
+        min-width:250px ;
+        align-content: center;
+        justify-content: space-between;/* equal distribution of space*/
+      }
+      .button{
+        border-radius: 15px;
+        
+      }
+      .search-button{
+        height: 10px;
+        width: 30px;
+        margin-left: -1px;
+        padding-left: -1px;
+      }
+      .search-b .toolkit{
+        position: absolute;
+       background-color: rgb(92, 89, 89);
+       color: white;
+       padding-top: 4px;
+       padding-bottom: 4px;
+       padding-left: 8px;
+       padding-right: 8px ;
+       border-radius: 2px;
+       font-size: 12px;
+       bottom: -30px;
+       opacity: 0;            /* zer0 becaure when curson wil be on that element ony the it will show the text,etc*/
+       transition: opacity 0.15;
+       pointer-events: none;
+
+      }
+      .mic-border .toolkit{
+        position: absolute;
+       background-color: rgb(92, 89, 89);
+       color: white;
+       padding-top: 4px;
+       padding-bottom: 4px;
+       padding-left: 8px;
+       padding-right: 8px ;
+       border-radius: 2px;
+       font-size: 12px;
+       bottom: -30px;  /*  To move the element out side the margin we take negative value*/
+       opacity: 0;
+       transition: opacity 0.15;
+       pointer-events: none;
+
+      }
+      .search-b:hover .toolkit{
+        opacity:1 ;/* here opacity is one  means when we will hover at that time it will show the elemnet*/
+
+      }
+      .mic-border:hover .toolkit{
+        opacity:1 ;}
+
+     .mic-button{
+      height: 35px;
+      width: 35px;
+      vertical-align: middle;
+      border-radius: 10px;
+      
+      }
+      .right-section{
+        background-color: antiquewhite;
+        width: 150px;
+        flex: 1;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-shrink: 0px;
+      }
+      .cast{
+        height: 50px;
+
+      }
+      .grid{
+        height: 50px;
+      }
+      .bell{
+        height: 50px;
+
+      }
+      .profile{
+        height: 35px;
+       vertical-align: top;    
+      }
+      .tline{
+        height: 40px;
+       }
+
+      .logoc{
+
+        height: 90px;
+        vertical-align: top;
+        box-shadow: inset rgba(255, 255, 255, 0.15);
+      }
+
+      .video-grid{
+        display: grid;/* it gives a format to our web page*/
+      grid-template-columns: 1fr 1fr 1fr;/* here we took  3 times fr means we are  making 3x3 format
+       we can make it in row format also*/
+      column-gap: 15px;
+      row-gap: 14px;
+      
+
+
+      }
+      @media (max-width: 1000px) {  /* MEDIA ELEMENT IS USED FOR MAKING OUR WEB PAGE RESPONSIVE MEA
+         IT WILL CHANGE ITS'S FORMAT ACCORDING TO SIZE OF THE PAGE*/
+        .video-grid{
+          grid-template-columns: 1fr 1fr;/* THIS LINE MEANS AT GIVEN WIDTH IT WI LL  FORM 2 COLUMNS */
+        }
+      }
+      @media(min-width: 950px) and (max-width: 1200){
+        .video-grid{
+          grid-template-columns: 1fr 1fr 1fr;
+        }
+      }
+      @media (miin-width:1100px) {
+        .video-grid{grid-template-columns: 1fr 1fr 1fr 1fr;
+          
+        }
+        
+      }
+      .sidebar{
+        position: fixed;
+        left: 0px;
+        bottom: 0px;
+        background-color:antiquewhite;
+        top:35px;
+        width: 60px;
+        
+      }
+      .sidebar-link{
+        background-color: antiquewhite;
+        height: 115px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+
+}
+.sidebar-link:hover{
+  background-color: rgb(224, 197, 160);
+ 
+
+}
+
+       .thumbnail {
+        display: block;
+        width: 100%;
+      }
+      .video-time{
+        background-color: black;
+        color: rgb(255, 255, 255);
+      }
+      .video-info-grid{
+        display: grid;
+        grid-template-columns: 50px 1fr;
+        background-color: antiquewhite;
+      }
+      
+      .channel-picture{
+        width: 40px;
+        display: inline-block;
+        vertical-align: top;
+        margin-bottom:50px ;
+        
+        
+      }
+       .profile-pic{
+        display: inline;
+        width: 40px;
+        border-radius: 50px;
+        vertical-align: middle;
+        cursor: pointer;
+        
+    
+ }
+       .video-info{
+        
+        width: 200px;
+        
+       
+      }
+    
+      .video-title { 
+        width: 200px;
+       
+        font-weight: bold;
+        margin-top: 1px;
+        margin-bottom: 1px;
+        cursor: pointer;
+       
+      }
+      .search-bar::placeholder{ /* applying properties t]inside the search bar*/
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      }
+      .search-bar{
+        flex: 1;
+        line-height: 10px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        box-shadow: 30PX;
+        height: 25px;
+        box-shadow: inset 1PX 2PX 4PX rgba(0, 0, 0, 0.15);
+        margin-right: -4px;
+      }
+      .video-author {
+        width: 100px;
+        display: block;
+        margin-top: 4px;
+        margin-bottom: 1px;
+        font-size: 12px;
+
+
+      }
+      .search-b{
+        height: 30px;
+        
+      }
+      .video-stats {
+      font-size: 10px;
+        display: block;
+        margin-top: 1px;
+        margin-bottom: 4px;height: 25px;
+        display: inline-block;
+
+      }
+      .video-preview{
+        display: inline-block;/* inline  means they will take only space they needed*/
+       
+      }
+      .mic-border{
+        border: none;
+        background-color: rgba(255,255,255,0.15);
+       box-shadow:indigo;
+      
+      }
+      .image {
+        height: 60px;
+        padding-right: 8px;
+        
+      
+      }
+          
+      .sidebar-link div{
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-size: 10px;
+        font-weight: bold;
+      }
+      .link{
+        text-decoration: solid;
+        color: rgb(0, 0, 0);
+
+       /*  link class css style will make the text look normal but when  we click it will change style*/
+       transition: opacity 0.15;
+       
+      }
+      .link:hover{
+        text-decoration: underline;
+        opacity: 1;
+        color: blueviolet;
+      }
+    </style>
+    
+  </head><!-- here the html commnds initiated-->
+  <body class="body-dot"> <!-- class are for targetind our our html code in css -->
+    <div class="header"><!-- alignment is also imp in html ; heare we keep header at top position-->
+      <div class="left-section">
+       <img class="tline" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/3%20linew%20%281%29.png">
+       <img class="logoc" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/Chibbytuw.png">
+      </div>
+      <div class="middle-section">
+      <!-- OUR INPUT HERE IS SEARCH SO IT SHOULD BE PLACED AT TOP -->
+         <input class="search-bar" type="text" placeholder="search">
+         <button class="search-b">
+          <img class="search-button"src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/Untitled%20design%20%288%29.png">
+          <div class="toolkit">Search</div>
+         </button>
+         <button class=" mic-border">
+          <img class="mic-button" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/mic.png">
+          <div class="toolkit">Voice Search</div>
+         </button>
+      </div>
+      <div class="right-section">
+        <img class="cast" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/cast.png">
+        <img class="grid" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/grid%20view.png">
+        <img class="bell" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/basic%20html/bell.png">
+        <img class="profile" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/profile%20yellow%20%282%29.png">
+      </div>
+    </div>
+    <div class="sidebar">
+      <div class="sidebar-link">
+        <img  class="image" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/home.png" >
+        <div>Home</div>
+      </div>
+      <div class="sidebar-link">
+        <img  class="image" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/subscriw.png">
+        <div>Sub</div>
+      </div>
+      <div class="sidebar-link">
+      
+        <img  class="image" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/explore.png">
+        <div>Explore</div>
+      </div> 
+      <div class="sidebar-link">
+        <img  class="image" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/music.png">
+       <div>Music</div>
+       </div>
+      <div class="sidebar-link">
+        <img class="image" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/2-removebg-preview.png">
+        <div>Trending</div>
+      </div>
+      <div class="sidebar-link">
+        <img  class="image" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/originalsw.png">
+        <div>Originals</div>
+      </div>
+    </div>
+    <!-- FROM HERE OUR THUMBNAIL DESIGN INITIATED -->
+     <div class="video-grid"><!-- EVERYTHING BELOW VIDEO GRID COME ARE A ONE PART-->
+      <div class=" video-preview">
+      
+      <div>
+        <img class="thumbnail" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/CREATIONS.png">
+        <div class="video-time">03:12</div>
+      </div>
+    
+    <div class="video-info-grid">
+    <div class="channel-picture">
+      <img class=" profile-pic" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/WhatsApp%20Image%202024-03-24%20at%2011.12.45.jpeg">
+    </div>
+    
+    <div class="video-info">
+     <p class= " video-title">
+      <a class="link" href="https://youtu.be/wvWcKAm5zuI?feature=shared"target="_blank">Let's recreate new ideas|creativity|origami</a>
+    </p>
+    <p class="video-author">
+      C Creations</p>
+    <p class="video-stats">
+      8M views &#183;11 month ago
+    </p>
+    </div><!-- DIV IS WORKING AS A CONTAINER OR IT GGROUPED THE ELEMNTS-->
+    </div>
+  </div>
+  
+  <div class=" video-preview">
+    
+    <div>
+      <img class="thumbnail" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/MILESTONE.png">
+      
+      <div class="video-time">0:30</div> 
+    </div>
+  
+    <div class="video-info-grid">
+  <div class="channel-picture">
+    <img class=" profile-pic" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/college%20sq1.png">
+  </div>
+  <div class="video-info">
+   <p class= " video-title">
+    <a  class="link" href="https://youtube.com/shorts/TbG5TYDPYKQ?feature=shared"target="_blank"> My first  annual function of college</a>
+  </p>
+  <p class="video-author">
+    C for college</p>
+  <p class="video-stats">
+    2.4M views &#183;1 month ago
+  </p>
+  </div>
+</div>
+</div>
+
+
+<div class=" video-preview">
+    
+  <div>
+    <img class="thumbnail" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/anime.jpeg">
+    <div class="video-time">0:29</div>
+  </div>
+
+  <div class="video-info-grid">
+<div class="channel-picture">
+  <img class=" profile-pic" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/naru.46.jpeg">
+</div>
+<div class="video-info">
+ <p class= " video-title">
+  <a h class="link" href="https://youtu.be/c3um0Lo0ZqI?feature=shared"target="_blank">Top 10  BEST animes of 2024|anime editz|manga</a>
+</p>
+<p class="video-author">
+ Naruto World</p>
+<p class="video-stats">
+  60M views &#183;8  month ago
+</p>
+</div>
+</div>
+</div>
+
+
+<div class=" video-preview">
+    
+<div>
+  <img class="thumbnail" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/wall.jpeg">
+  <div class="video-time">0:30</div>
+</div>
+<div class="video-info-grid">
+
+<div class="channel-picture">
+<img class=" profile-pic" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/redmoon%282%29.jpeg">
+</div>
+<div class="video-info">
+<p class= " video-title">
+  <a  class="link" href="https://youtube.com/shorts/t7p6mZ97330?feature=shared"target="_blank">WALL beautification TIPS& TRICKS| COLORS</a>
+</p>
+<p class="video-author">
+Redmoon Creations</p>
+<p class="video-stats">
+2.9M views &#183;8 month ago
+</p>
+</div>
+</div>
+</div>
+
+<div class=" video-preview">
+    
+<div>
+  <img class="thumbnail" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/food.jpeg">
+  <div class="video-time">0:30</div>
+</div>
+
+<div class="video-info-grid">
+<div class="channel-picture">
+<img class=" profile-pic" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/chilli2.45%20%283%29.jpeg">
+</div>
+<div class="video-info">
+<p class= " video-title">
+  <a  class="link" href="https://youtube.com/shorts/uVlFhJIHAiY?feature=shared"target="_blank">Best sweet recipe  MODAK </a>
+</p>
+<p class="video-author">
+Chilli Flamese</p>
+<p class="video-stats">
+15M views &#183;4 weeks ago
+</p>
+</div>
+</div>
+</div>
+
+
+<div class=" video-preview">
+    
+<div>
+  <img class="thumbnail" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/travel.jpeg">
+  <div class="video-time">0:30</div>
+</div>
+<div class="video-info-grid">
+
+<div class="channel-picture">
+<img class=" profile-pic" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/vlogging%20%281%29.jpeg">
+</div>
+<div class="video-info">
+<p class= " video-title">
+  <a  class="link" href="https://youtube.com/shorts/X7l15xP94Ow?feature=shared"target="_blank">Explore the real essence of LIFE!!!</a>
+</p>
+<p class="video-author">
+C Vlogs</p>
+<p class="video-stats">
+40M views &#183;3month ago<!-- SOME SYMBOLS ARE NOT DISPLAY DIRECTLY SO WE USE SOME SPECIAL CODES TO REPRESET THEM-->
+</p>
+</div>
+</div>
+</div>
+
+
+<div class=" video-preview">
+    
+  <div>
+    <img class="thumbnail" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/DAILY9.20.jpeg">
+    <div class="video-time">0:30</div>
+  </div>
+  
+  <div class="video-info-grid">
+  <div class="channel-picture">
+  <img class=" profile-pic" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/chilli2.45%20%283%29.jpeg">
+  </div>
+  <div class="video-info">
+  <p class= " video-title">
+    <a  class="link" href="https://youtube.com/shorts/yAyB_pq7qjY?feature=shared"target="_blank"> A normal Day </a>
+  </p>
+  <p class="video-author">
+  C vlogs</p>
+  <p class="video-stats">
+  29M views &#183;8 days ago
+  </p>
+  </div>
+  </div>
+  </div>
+
+
+  <div class=" video-preview">
+    
+    <div>
+      <img class="thumbnail" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/AI.jpeg">
+      <div class="video-time">0:30</div>
+    </div>
+    
+    <div class="video-info-grid">
+    <div class="channel-picture">
+    <img class=" profile-pic" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/chilli2.45%20%283%29.jpeg">
+    </div>
+    <div class="video-info">
+    <p class= " video-title">
+      <a  class="link" href="https://youtube.com/shorts/R1scEk5H0hs?feature=shared"target="_blank">Future is AI? </a>
+    </p>
+    <p class="video-author">
+    CTech</p>
+    <p class="video-stats">
+    90M views &#183;7 months ago
+    </p>
+    </div>
+    </div>
+    </div>
+
+    
+
+
+    <div class=" video-preview">
+    
+      <div>
+        <img class="thumbnail" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/IIT%20at%2023.45.12.jpeg">
+        <div class="video-time">0:30</div>
+      </div>
+      
+      <div class="video-info-grid">
+      <div class="channel-picture">
+      <img class=" profile-pic" src="file:///c%3A/Users/cheta/OneDrive/Desktop/html-css-course/chilli2.45%20%283%29.jpeg">
+      </div>
+      <div class="video-info">
+      <p class= " video-title">
+        <a  class="link" href="https://youtube.com/shorts/RENMfqYM3yI?feature=shared"target="_blank"> One of most AWAITED thing! </a>
+      </p>
+      <p class="video-author">
+      C World</p>
+      <p class="video-stats">
+      45M views &#183;2 months ago
+      </p>
+      </div>
+      </div>
+      </div>
+      
+  
+
+</div>
+    
+</body>
+</html>
+<!--
+  STEPS OF CEARTING THIS WHOLE PAGE (CHHIBYTUBE)
+
+  1- UPLOADED ALL THE REQUIRED IMAGES IN GIVEN FOLDER
+  2- PICK IMAGE FROM FOLDER AND DIRECT INSERTED IT IH CHROME SEARCH TO GET A LINK FORMAT OF IMAGE FOR OUR CODE
+   3- WE CAN MAKE DIFFRENT FILES  EACH CODE SECTION TO LOOK CODE CLEAN BUT I PEFFERED TO MALE IT IN ONE
+
+   4-FIRST WRITE THE BASIC HTML SYNTAX
+  5- I INITIATED WITH SEARCH BAR USING INPUT COMMANT
+  6- MAKE A THUMNAIL i.e INSERTED IMAGES AND THEN TEXT 
+  7- APPLY CSS PROPERTIES TO THEM
+
+  8-AALIGN THE ELENTS PROPERLY SO THEY WILL LOOK AS YOU DESIGNED
+
+  9- AFTER THIS INITIATED WITH HEADER BAR
+  10- INSERTED ALL THE IMAGES AND ELEMNTS TO THE HEADER , ADJUSTING HEADER HEIGHT AND WIDTH 
+   APPLIED THE CSS PROPERTY
+
+
+  11- THE I MOVED TO THE SIDE BAR AND INSERTED IMAGES AND ELEMENTS BY APPLYING CS PROPERTIES
+   12 - USE MEDIA PROPERTY TO MAKE WEB PAGE RESPONSIVE
+
+   13 I INSERTED CLIKABLE LINKS  TO MY PAGE SO IT WILL DIRECTLY LINK AND OPEN IN OTHER SITE
+   14- GIVE FINAL FINISHING TOUCHES AND ITS DONE!
+
+-->
